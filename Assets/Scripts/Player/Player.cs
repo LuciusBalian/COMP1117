@@ -207,12 +207,35 @@ public class Player : Character
         rBody.AddForce(new Vector2(pushDirection * knockbackForce, knockbackForce), ForceMode2D.Impulse);
     }
 
-    public void ResetState()
+    public void ResetState(Vector3 resetPos)
     {
+        // Activate the player
+        gameObject.SetActive(true);
+
+        // Set position
+        transform.position = resetPos;
+
+        // Reset values
         isDead = false;
         isStunned = false;
+
+        // Reset health
         currentHealth = 3;
+
+        // Reset animation
         anim.SetBool("IsDead", false);
+
+        // Reset sprite renderer
         sRend.enabled = true;
+        sRend.sortingLayerName = "Default";
+        sRend.sortingOrder = 0;
+
+        // Reset velocity
+        rBody.linearVelocity = Vector2.zero;
+        rBody.gravityScale = 5f;
+        rBody.simulated = true;
+
+        // Reset collider
+        GetComponent<Collider2D>().enabled = true;
     }
 }
