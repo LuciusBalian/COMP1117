@@ -3,11 +3,28 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
+    [SerializeField] private Checkpoint[] allCheckpoints;
     private string savePath;
 
     private void Awake()
     {
         savePath = Application.persistentDataPath + "/player_save.json";
+    }
+
+    private void OnEnable()
+    {
+        foreach(Checkpoint cp in allCheckpoints)
+        {
+            cp.OnCheckpointReached += SaveGame; // Subscribe. 
+        }
+    }
+
+    private void OnDisable()
+    {
+        foreach(Checkpoint cp in allCheckpoints)
+        {
+            cp.OnCheckpointReached -= SaveGame; // Unsubscribe
+        }
     }
 
     public void SaveGame(Vector3 playerPos)
