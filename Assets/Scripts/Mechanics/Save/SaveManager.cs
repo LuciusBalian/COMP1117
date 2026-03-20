@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-    [SerializeField] private Checkpoint[] allCheckpoints;
+    // [SerializeField] private Checkpoint[] allCheckpoints;
     private string savePath;
 
     private void Awake()
@@ -11,6 +11,7 @@ public class SaveManager : MonoBehaviour
         savePath = Application.persistentDataPath + "/player_save.json";
     }
 
+    /*
     private void OnEnable()
     {
         foreach(Checkpoint cp in allCheckpoints)
@@ -26,6 +27,7 @@ public class SaveManager : MonoBehaviour
             cp.OnCheckpointReached -= SaveGame; // Unsubscribe
         }
     }
+    */
 
     public void SaveGame(Vector3 playerPos)
     {
