@@ -10,7 +10,7 @@ public class Cherry : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             // Announce that a cherry has been picked up
             onPickedUp.Invoke(cherryValue);
