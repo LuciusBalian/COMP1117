@@ -23,53 +23,23 @@ public class GameOverUI : MonoBehaviour
         fader.color = new Color(0, 0, 0, 0);
     }
 
+    // Load From Checkpoint function
     public void LoadFromCheckpoint()
     {
-        // 0. Read the data from the persistentDataPath
-        PlayerSaveData data = saveManager.LoadGame();
+        // 1. Read the data from the save manager
+        Vector3 playerPos = saveManager.LoadGame();
 
-        // Safety check!
-        if(data != null)
+        if (playerPos != Vector3.zero)
         {
-            // 1. Reactivate the player object
-            player.SetActive(true);
+            player.GetComponent<Player>().ResetState(playerPos);
 
-            // 2. Reconstruct the vector3 from the saved float array.
-            Vector3 savedPos = new Vector3(data.position[0], data.position[1], data.position[2]);
-
-            // 3. Teleport the player back to the checkpoint. Reset
-            player.transform.position = savedPos;
-
-            Player playerScript = player.GetComponent<Player>();
-            if(playerScript != null)
-            {
-                playerScript.ResetState();
-            }
-
-            // 4. Reset velocity so they don't spawn with old physics
-            Rigidbody2D rBody = player.GetComponent<Rigidbody2D>();
-            if(rBody != null)
-            {
-                rBody.linearVelocity = Vector2.zero;
-                rBody.gravityScale = 5f;
-                rBody.simulated = true;
-            }
-
-            Collider2D col = player.GetComponent<Collider2D>();
-            if(col != null)
-            {
-                col.enabled = true;
-            }
-
-            // 5. Hide the game over menu and reset values
+            // Hide the game over menu and reset fader
             menuPanel.SetActive(false);
             fader.color = new Color(0, 0, 0, 0);
-
-            Debug.Log("Spawned at Checkpoint");
         }
         else
         {
-            Debug.LogError("No checkpoint file found!");
+            Debug.LogError("No checkpoint file found");
         }
     }
 

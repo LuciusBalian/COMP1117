@@ -3,17 +3,16 @@ using UnityEngine.Events;
 
 public class Checkpoint : MonoBehaviour
 {
-    // public SaveManager saveManager; 
+    /* The C# Way
+     * 
+    // 1. Define the delegate (The blueprint for listeners)
+    public delegate void CheckpointHandler(Vector3 position);
 
-    /* The C# Event Way
-    // 1. Delegate
-    // public delegate void CheckpointHandler(Vector3 position);
-
-    // 2. The Event
-    // public event CheckpointHandler OnCheckpointReached;
+    // 2. Define the event
+    public event CheckpointHandler OnCheckpointReached;
     */
 
-    // The UnityEvent Way
+    // The UnityEvents Way
     public UnityEvent<Vector3> onCheckpointReached;
 
     private SpriteRenderer sRend;
@@ -29,14 +28,12 @@ public class Checkpoint : MonoBehaviour
         {
             sRend.color = Color.green;
 
-            // saveManager.SaveGame(collision.transform.position);
-
-            /* C# Event Way
+            /* The C# Way
             // 3. Let everyone know checkpoint has been reached!
-            // OnCheckpointReached?.Invoke(collision.transform.position);
+            OnCheckpointReached?.Invoke(collision.transform.position);
             */
 
-            // The UnityEventWay
+            // The UnityEvent Way
             onCheckpointReached.Invoke(collision.transform.position);
 
             Debug.Log("Checkpoint Reached!");
