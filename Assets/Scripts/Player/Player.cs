@@ -81,7 +81,6 @@ public class Player : Character
     {
         rBody.linearVelocity = new Vector2(rBody.linearVelocity.x, jumpForce);
         anim.SetTrigger("Jump");
-        AudioManager.Instance.PlayJump();
 
         jumpsRemaining--;
     }
