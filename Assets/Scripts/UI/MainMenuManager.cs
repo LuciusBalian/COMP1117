@@ -5,6 +5,12 @@ public class MainMenuManager : MonoBehaviour
 {
     public void StartGame()
     {
+        // 1. Tell the audio manager to swap tracks
+        if(AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayLevelMusic();
+        }
+
         SceneManager.LoadScene("Level");
     }
 

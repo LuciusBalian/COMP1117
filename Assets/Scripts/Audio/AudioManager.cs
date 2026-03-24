@@ -2,44 +2,42 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    // 1. Static access point
     public static AudioManager Instance;
 
-    [Header("Music")]
-    [Tooltip("Plays looping background tracks")]
+    [SerializeField] private AudioPlaylist playlist; // Drag MainPlaylist here
     [SerializeField] private AudioSource musicSource;
-
-    [Header("SFX")]
-    [Tooltip("Player one-shot sound effects")]
     [SerializeField] private AudioSource sfxSource;
 
     private void Awake()
     {
-        // 2. The Singleton Pattern Logic
-        if(Instance == null)
+        if (Instance == null)
         {
-            // If i'm the first one, I am the Instance
             Instance = this;
-
-            // 3. The persistence
             DontDestroyOnLoad(gameObject);
         }
-        else
-        {
-            // If another audiomanager exists, destroy it
-            Destroy(gameObject);
+        else 
+        { 
+            Destroy(gameObject); 
         }
     }
 
-    public void PlayMusic(AudioClip clip, bool loop = true)
+    private void Start()
     {
-        musicSource.clip = clip;
-        musicSource.loop = loop;
-        musicSource.Play();
+        if (playlist != null && playlist.menuTheme != null)
+        {
+            PlayMenuMusic();
+        }
     }
 
-    public void PlaySFX(AudioClip clip)
+    // New methods to play specific tracks from the playlist
+    public void PlayMenuMusic() => PlayMusic(playlist.menuTheme);
+    public void PlayLevelMusic() => PlayMusic(playlist.levelTheme);
+    public void PlayClickSFX() => sfxSource.PlayOneShot(playlist.buttonClick);
+
+    private void PlayMusic(AudioClip clip)
     {
-        sfxSource.PlayOneShot(clip);
+        if (musicSource.clip == clip) return; // Prevent restarting if already playing
+        musicSource.clip = clip;
+        musicSource.Play();
     }
 }
