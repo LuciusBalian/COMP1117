@@ -7,7 +7,15 @@ public class AudioPlaylist : ScriptableObject
     public AudioClip menuTheme;
     public AudioClip levelTheme;
 
-    [Header("Sound Effects")]
+    [Header("UI Sounds")]
     public AudioClip buttonClick;
-    public AudioClip levelStart;
+
+    [Header("Player Movement")]
+    public AudioClip walkStep;
+    public AudioClip jump;
+    public AudioClip doubleJump;
+
+    [Header("Gameplay Events")]
+    public AudioClip pickupItem; // The cherry!
+    public AudioClip enemyStomp;
 }

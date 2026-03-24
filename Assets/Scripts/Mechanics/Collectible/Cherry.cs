@@ -15,6 +15,8 @@ public class Cherry : MonoBehaviour
             // Announce that a cherry has been picked up
             onPickedUp.Invoke(cherryValue);
 
+            AudioManager.Instance.PlayPickup();
+
             // Destroy the cherry
             Destroy(gameObject);
         }

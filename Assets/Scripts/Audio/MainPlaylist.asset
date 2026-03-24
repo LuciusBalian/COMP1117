@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70138282272e86f4babac8ef081b9b7b, type: 3}
   m_Name: MainPlaylist
   m_EditorClassIdentifier: 
-  menuTheme: {fileID: 0}
-  levelTheme: {fileID: 0}
-  buttonClick: {fileID: 0}
-  levelStart: {fileID: 0}
+  menuTheme: {fileID: 8300000, guid: c4e89a62a84bd0d4c917b326373443e2, type: 3}
+  levelTheme: {fileID: 8300000, guid: 8c91f9365558e3242864116ed7c99fc3, type: 3}
+  buttonClick: {fileID: 8300000, guid: fb1bfa13c22bb5d4a81209b87010f1ff, type: 3}
+  walkStep: {fileID: 8300000, guid: 35e540488a908dc4097dd60362ee5d88, type: 3}
+  jump: {fileID: 8300000, guid: aa98db8ffce059542a98248cfc79be26, type: 3}
+  doubleJump: {fileID: 0}
+  pickupItem: {fileID: 8300000, guid: 144492a1f91ca364cab8c157eb5e6b7d, type: 3}
+  enemyStomp: {fileID: 8300000, guid: 64f282b2d3717c54abfc90954cb4602c, type: 3}

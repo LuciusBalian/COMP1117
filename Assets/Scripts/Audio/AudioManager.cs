@@ -29,15 +29,22 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // New methods to play specific tracks from the playlist
+    // --- MUSIC METHODS ---
     public void PlayMenuMusic() => PlayMusic(playlist.menuTheme);
     public void PlayLevelMusic() => PlayMusic(playlist.levelTheme);
-    public void PlayClickSFX() => sfxSource.PlayOneShot(playlist.buttonClick);
 
     private void PlayMusic(AudioClip clip)
     {
-        if (musicSource.clip == clip) return; // Prevent restarting if already playing
+        if (musicSource.clip == clip) return;
         musicSource.clip = clip;
         musicSource.Play();
     }
+
+    // --- SFX METHODS (Static Access Points) ---
+    public void PlayClick() => sfxSource.PlayOneShot(playlist.buttonClick);
+    public void PlayJump() => sfxSource.PlayOneShot(playlist.jump);
+    public void PlayDoubleJump() => sfxSource.PlayOneShot(playlist.doubleJump);
+    public void PlayWalk() => sfxSource.PlayOneShot(playlist.walkStep);
+    public void PlayPickup() => sfxSource.PlayOneShot(playlist.pickupItem);
+    public void PlayStomp() => sfxSource.PlayOneShot(playlist.enemyStomp);
 }
