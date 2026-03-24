@@ -13,7 +13,6 @@ public class AudioPlaylist : ScriptableObject
     [Header("Player Movement")]
     public AudioClip walkStep;
     public AudioClip jump;
-    public AudioClip doubleJump;
 
     [Header("Gameplay Events")]
     public AudioClip pickupItem; // The cherry!

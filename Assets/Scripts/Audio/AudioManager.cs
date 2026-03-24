@@ -43,7 +43,6 @@ public class AudioManager : MonoBehaviour
     // --- SFX METHODS (Static Access Points) ---
     public void PlayClick() => sfxSource.PlayOneShot(playlist.buttonClick);
     public void PlayJump() => sfxSource.PlayOneShot(playlist.jump);
-    public void PlayDoubleJump() => sfxSource.PlayOneShot(playlist.doubleJump);
     public void PlayWalk() => sfxSource.PlayOneShot(playlist.walkStep);
     public void PlayPickup() => sfxSource.PlayOneShot(playlist.pickupItem);
     public void PlayStomp() => sfxSource.PlayOneShot(playlist.enemyStomp);

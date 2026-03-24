@@ -68,5 +68,9 @@ public class GameOverUI : MonoBehaviour
     }
 
     public void RestartLevel() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    public void QuitToMenu() => SceneManager.LoadScene("MainMenu");
+    public void QuitToMenu()
+    {
+        AudioManager.Instance.PlayMenuMusic();
+        SceneManager.LoadScene("MainMenu");
+    }
 }
