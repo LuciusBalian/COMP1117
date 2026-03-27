@@ -3,8 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    [SerializeField] private AudioClip menuMusic;
+    [SerializeField] private AudioClip levelMusic;
+
+    private void Start()
+    {
+        AudioManager.Instance.PlayMusic(menuMusic);
+    }
+
     public void StartGame()
     {
+        AudioManager.Instance.PlayMusic(levelMusic);
         SceneManager.LoadScene("Level");
     }
 

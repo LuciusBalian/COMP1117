@@ -278,7 +278,9 @@ MonoBehaviour:
   moveSpeed: 5
   maxHealth: 3
   facesLeftByDefault: 0
+  jumpClip: {fileID: 8300000, guid: 5fcef1092d64ed947a82f85a2a943c66, type: 3}
   jumpForce: 20
+  maxJumps: 2
   groundCheck: {fileID: 4629092240878305002}
   wallCheck: {fileID: 3956564706752494598}
   groundCheckRadius: 0.2
@@ -286,6 +288,10 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   knockbackForce: 5
+  iframeDuration: 1.5
+  flashInterval: 0.1
+  hurtStunTime: 0.3
+  gameOverUI: {fileID: 0}
 --- !u!1 &6304144322025517766
 GameObject:
   m_ObjectHideFlags: 0

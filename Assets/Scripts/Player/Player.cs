@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 
 public class Player : Character
 {
+    [SerializeField] private AudioClip jumpClip;
+
     [Header("Movement Settings")]
     [SerializeField] private float jumpForce = 12f;
     [SerializeField] private int maxJumps = 2;  // Totals jumps allowed.
@@ -79,6 +81,7 @@ public class Player : Character
 
     private void Jump()
     {
+        AudioManager.Instance.PlaySFX(jumpClip);
         rBody.linearVelocity = new Vector2(rBody.linearVelocity.x, jumpForce);
         anim.SetTrigger("Jump");
 
