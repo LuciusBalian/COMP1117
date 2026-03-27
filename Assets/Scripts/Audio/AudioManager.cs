@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+    [SerializeField] private AudioPlaylist playlist;
+
     // 1. Static access point
     public static AudioManager Instance;
 
@@ -31,15 +33,28 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(AudioClip clip, bool isLooping = true)
+    // ------------- MUSIC METHODS --------------- //
+    /*
+    public void PlayMenuMusic()
     {
+        PlayMusic(playlist.menuTheme);
+    }
+    */
+    public void PlayMenuMusic() => PlayMusic(playlist.menuTheme);
+    public void PlayLevelMusic() => PlayMusic(playlist.levelTheme);
+
+    private void PlayMusic(AudioClip clip)
+    {
+        // Safety check!
+        if(musicSource.clip == clip)
+        {
+            return; // Don't interrupt the current song with the same song.
+        }
         musicSource.clip = clip;
-        musicSource.loop = isLooping;
         musicSource.Play();
     }
 
-    public void PlaySFX(AudioClip clip)
-    {
-        sfxSource.PlayOneShot(clip);
-    }
+
+    // -------------- SFX METHODS ----------------//
+    public void PlayJumpSFX() => sfxSource.PlayOneShot(playlist.jumpFX);
 }
