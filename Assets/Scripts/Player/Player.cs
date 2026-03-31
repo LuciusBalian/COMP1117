@@ -31,36 +31,26 @@ public class Player : Character
 
     private void Start()
     {
-        // Initial entry point
-        SwitchState(GroundedState);
+        // INITIALIZATION LOGIC
     }
 
     private void Update()
     {
         if (IsDead) return;
 
-        // Delegate frame-by-frame logic to the active state
-        currentState.UpdateState(this);
+        // UPDATE CURRENT STATE
     }
 
     private void FixedUpdate()
     {
         if (IsDead) return;
 
-        // Delegate physics logic to the active state
-        currentState.FixedUpdateState(this);
+        // UPDATE CURRENT STATE
     }
 
     public void SwitchState(PlayerBaseState newState)
     {
-        // Clean up current state before leaving
-        if (currentState != null)
-            currentState.ExitState(this);
-
-        currentState = newState;
-
-        // Initialize the new state
-        currentState.EnterState(this);
+        // SWITCH STATE LOGIC
     }
 
     // --- Unity Input System Events ---
