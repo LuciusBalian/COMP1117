@@ -4,70 +4,57 @@ using UnityEngine.Rendering;
 
 public abstract class Character : MonoBehaviour, IDamageable
 {
-    // Private variables
-    [Header("Base Stats")]
-    [SerializeField] private float moveSpeed = 5.0f;
-    [SerializeField] private int maxHealth = 3;
-
-    [Header("Visuals")]
+    [Header("Visual Settings")]
     [SerializeField] protected bool facesLeftByDefault = false;
 
-    // Backing fields so Player and Enemies can check/set it
-    protected bool isDead = false;
-    protected int currentHealth;
+    // State tracking
+    public bool IsDead { get; protected set; }
+    public int CurrentHealth { get; protected set; }
 
-    // Component references used by call characters.
-    protected Animator anim;
-    protected Rigidbody2D rBody;
-    protected SpriteRenderer sRend;
-
-
-    // Public Properties (Read-only)
-    public float MoveSpeed => moveSpeed;
-    
+    // Component references (Made public so States can access them easily)
+    [HideInInspector] public Animator anim;
+    [HideInInspector] public Rigidbody2D rBody;
+    [HideInInspector] public SpriteRenderer sRend;
 
     protected virtual void Awake()
     {
         rBody = GetComponent<Rigidbody2D>();
 
-        // Logic stays on root, but these components are now children
+        // Components are on children for better organization
         anim = GetComponentInChildren<Animator>();
         sRend = GetComponentInChildren<SpriteRenderer>();
-
-        currentHealth = maxHealth;
     }
 
+    // This handles the "Standard" damage logic. 
+    // Player/Enemies can override this to add Flashing or Stun states.
     public virtual void TakeDamage(int amount)
     {
-        if (isDead) return;
-        currentHealth -= amount;
+        if (IsDead) return;
 
-        if (currentHealth < 0) Die();
+        CurrentHealth -= amount;
+
+        if (CurrentHealth <= 0)
+        {
+            Die();
+        }
     }
 
-    protected void FlipSprite(float horizontalVelocity)
+    // Flip logic is shared by all characters (Player and Enemies)
+    public void FlipSprite(float horizontalVelocity)
     {
         if (Mathf.Abs(horizontalVelocity) > 0.1f)
         {
             float direction = horizontalVelocity > 0 ? 1f : -1f;
             Vector3 newScale = anim.transform.localScale;
 
-            if (facesLeftByDefault)
-            {
-                // Invert the logic: Positive movement = Negative scale
-                newScale.x = direction * -1f;
-            }
-            else
-            {
-                // Standard logic: Positive movement = Positive scale
-                newScale.x = direction;
-            }
-
+            // Adjust scale based on the default sprite orientation
+            newScale.x = facesLeftByDefault ? (direction * -1f) : direction;
             anim.transform.localScale = newScale;
         }
     }
 
-    // Abstract functions
-    public abstract void Move();
+    // These remain abstract so Player and Enemy can implement 
+    // their specific State Machine logic.
     public abstract void Die();
+    public abstract void Move();
 }

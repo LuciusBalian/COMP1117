@@ -7,26 +7,20 @@ public abstract class Enemy : Character
     [SerializeField] protected float stompBounceForce = 12f;
 
     [Header("Death Effects")]
-    [SerializeField] private GameObject deathEffectPrefab; 
+    [SerializeField] private GameObject deathEffectPrefab;
 
-    // Shared behaviour: ALL enemies need to detect the player hitting them.
     protected virtual void OnCollisionEnter2D(Collision2D collision)
     {
-        // 1. Try to get the Player script
-        if(collision.gameObject.TryGetComponent(out Player player))
+        if (collision.gameObject.TryGetComponent(out Player player))
         {
-            // 2. Check the collision normal (direction of the hit)
-            // A normal.y of -1 means the hitcame from the very top.
             Vector2 contactNormal = collision.contacts[0].normal;
 
-            if(contactNormal.y <= -0.5f)
+            if (contactNormal.y <= -0.5f)
             {
-                // Successful "Bonk"
                 OnStomped(player);
             }
             else
             {
-                // Hit from the side or bottom
                 player.TakeDamage(contactDamage);
             }
         }
@@ -34,11 +28,10 @@ public abstract class Enemy : Character
 
     protected virtual void OnStomped(Player player)
     {
-        // Apply a "bounce" directly to the players rigidbody.
-        Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
-        if (playerRb != null)
+        // Accessing the Player's Rigidbody (assuming Player also updated to RBody)
+        if (player.rBody != null)
         {
-            playerRb.linearVelocity = new Vector2(playerRb.linearVelocity.x, stompBounceForce);
+            player.rBody.linearVelocity = new Vector2(player.rBody.linearVelocity.x, stompBounceForce);
         }
 
         Die();
@@ -46,27 +39,23 @@ public abstract class Enemy : Character
 
     public override void Die()
     {
-        if(isDead) return;
-        isDead = true;
+        if (IsDead) return; // Using capitalized Property from Character.cs
+                            // Note: You may need a 'protected set' in Character or a local IsDead = true;
 
-        // 0. Spawn death effect prefab at the current enemy position
         if (deathEffectPrefab != null)
         {
             Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
         }
 
-        // 1. Play the "enemy-death" (explosion) animation
-        if(sRend != null)
+        if (sRend != null)
         {
             sRend.enabled = false;
         }
 
-        // 2. Disable the collider so the player doesn't hit the "corpse"
         rBody.simulated = false;
         rBody.linearVelocity = Vector2.zero;
         GetComponent<Collider2D>().enabled = false;
 
-        // 3. Destroy the object
         Destroy(gameObject, 0.1f);
     }
 }
