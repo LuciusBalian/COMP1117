@@ -2,6 +2,9 @@ using UnityEngine;
 
 public abstract class FlyingEnemy : Enemy
 {
+    [Header("Stats")]
+    [SerializeField] protected float moveSpeed = 4f;
+
     [Header("Flight Settings")]
     [SerializeField] protected Transform pointA;
     [SerializeField] protected Transform pointB;
@@ -12,53 +15,31 @@ public abstract class FlyingEnemy : Enemy
     protected override void Awake()
     {
         base.Awake();
-
-        // Ensure the enemy doesn't fall
-        rBody.gravityScale = 0;
-
-        // Start by heading forwards point B.
+        rBody.gravityScale = 0; // Using capitalized RBody
         currentTarget = pointB;
     }
 
     protected virtual void Update()
     {
-        if(isDead) return;
+        if (IsDead) return;
         Move();
     }
 
     public override void Move()
     {
-        // 1. Calculate direction to target
         Vector2 direction = (currentTarget.position - transform.position).normalized;
+        rBody.linearVelocity = direction * moveSpeed;
 
-        // 2. Apply velocity
-        rBody.linearVelocity = direction * MoveSpeed;
-
-        // 3. Check if we arrived at the target
         if (Vector2.Distance(transform.position, currentTarget.position) < arrivalThreshold)
         {
             SwitchTarget();
         }
 
-        // 4. Flip visuals based on X movement
         FlipSprite(rBody.linearVelocity.x);
     }
 
     protected virtual void SwitchTarget()
     {
         currentTarget = (currentTarget == pointA) ? pointB : pointA;
-    }
-
-    private void OnDrawGizmos()
-    {
-        if(pointA != null && pointB != null)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(pointA.position, pointB.position);
-
-            // Arrival zones
-            Gizmos.DrawWireSphere(pointA.position, arrivalThreshold);
-            Gizmos.DrawWireSphere(pointB.position, arrivalThreshold);
-        }
     }
 }
