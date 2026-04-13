@@ -41,6 +41,7 @@ public class Player : Character
         if (IsDead) return;
 
         // UPDATE CURRENT STATE
+        currentState.UpdateState(this);
     }
 
     private void FixedUpdate()
@@ -48,6 +49,7 @@ public class Player : Character
         if (IsDead) return;
 
         // UPDATE CURRENT STATE
+        currentState.FixedUpdateState(this);
     }
 
     public void SwitchState(PlayerBaseState newState)
@@ -57,6 +59,12 @@ public class Player : Character
         {
             currentState.ExitState(this);
         }
+
+        currentState = newState;
+
+        currentState.EnterState(this);
+
+
     }
 
 
