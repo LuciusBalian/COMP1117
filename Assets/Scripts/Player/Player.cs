@@ -18,10 +18,12 @@ public class Player : Character
     public PlayerAirborneState AirborneState = new PlayerAirborneState();
     public PlayerHurtState HurtState = new PlayerHurtState();
     public PlayerDeathState DeathState = new PlayerDeathState();
+    public PlayerCrouchState CrouchState = new PlayerCrouchState();
 
     [HideInInspector] public Vector2 moveInput;
     [HideInInspector] public int jumpsRemaining;
     [HideInInspector] public bool isInvulnerable;
+
 
     protected override void Awake()
     {
@@ -110,7 +112,7 @@ public class Player : Character
 
     public override void Move()
     {
-        
+        if () {
     }
 
     public void ResetState(Vector3 resetPos)

@@ -15,4 +15,5 @@ public class PlayerDeathState : PlayerBaseState
 
     public override void FixedUpdateState(Player player) { }
     public override void ExitState(Player player) { }
+
 }

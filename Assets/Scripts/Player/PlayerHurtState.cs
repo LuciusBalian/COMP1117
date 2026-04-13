@@ -26,6 +26,7 @@ public class PlayerHurtState : PlayerBaseState
         
     }
 
+
     private void ApplyKnockback(Player player)
     {
         
