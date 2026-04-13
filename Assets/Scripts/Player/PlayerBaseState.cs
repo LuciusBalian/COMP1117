@@ -9,4 +9,5 @@ public abstract class PlayerBaseState
     public virtual void OnJumpPressed(Player player) { }
     public virtual void OnCrouchHeld(Player player) { }
     public virtual void OnCrouchReleased(Player player) { }
+    public virtual void OnDashPressed(Player player) { }
 }

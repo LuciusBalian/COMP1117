@@ -37,6 +37,10 @@ public class PlayerAirborneState : PlayerBaseState
             player.jumpsRemaining--;
         }
     }
+    public override void OnDashPressed(Player player)
+    {
+        player.SwitchState(player.DashState);
+    }
 
     public override void ExitState(Player player) { }
 }

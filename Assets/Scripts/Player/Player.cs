@@ -20,10 +20,13 @@ public class Player : Character
     public PlayerHurtState HurtState = new PlayerHurtState();
     public PlayerDeathState DeathState = new PlayerDeathState();
     public PlayerCrouchState CrouchState = new PlayerCrouchState();
+    public PlayerDashState DashState = new PlayerDashState();
 
     [HideInInspector] public Vector2 moveInput;
     [HideInInspector] public int jumpsRemaining;
     [HideInInspector] public bool isInvulnerable;
+
+    private float dashCD = 0f;
 
 
     protected override void Awake()
@@ -41,6 +44,8 @@ public class Player : Character
 
     private void Update()
     {
+        if (dashCD > 0)
+            dashCD -= Time.deltaTime;
         if (IsDead) return;
 
         // UPDATE CURRENT STATE
@@ -90,6 +95,13 @@ public class Player : Character
             currentState.OnCrouchHeld(this);
         else if (context.canceled && !CheckHeadHit())
             currentState.OnCrouchReleased(this);
+    }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        if (context.started && dashCD <= 0f)
+            currentState.OnDashPressed(this);
+            dashCD = 4f;
     }
 
     // --- Shared Logic Helpers ---

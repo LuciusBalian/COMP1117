@@ -46,6 +46,10 @@ public class PlayerGroundedState : PlayerBaseState
         player.SwitchState(player.CrouchState);
     }
 
+    public override void OnDashPressed(Player player)
+    {
+        player.SwitchState(player.DashState);
+    }
 
     public override void ExitState(Player player) { }
 }
