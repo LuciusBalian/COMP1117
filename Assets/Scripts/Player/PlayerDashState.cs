@@ -8,6 +8,7 @@ public class PlayerDashState : PlayerBaseState
     public override void EnterState(Player player)
     {
         dashTimer = 0.2f;
+        Debug.Log("entered dash state");
     }
 
     public override void UpdateState(Player player)
@@ -22,7 +23,9 @@ public class PlayerDashState : PlayerBaseState
                 player.SwitchState(player.GroundedState);
             else
                 player.SwitchState(player.AirborneState);
+        player.rBody.linearVelocity = new Vector2(5.0f * player.data.moveSpeed * Mathf.Sign(player.anim.transform.localScale.x), player.rBody.linearVelocityY);
 
+        player.FlipSprite(player.moveInput.x);
     }
 
     public override void ExitState(Player player)

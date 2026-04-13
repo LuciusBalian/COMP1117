@@ -44,7 +44,7 @@ public class Player : Character
 
     private void Update()
     {
-        if (dashCD > 0)
+        if (dashCD > 0f)
             dashCD -= Time.deltaTime;
         if (IsDead) return;
 
@@ -100,8 +100,10 @@ public class Player : Character
     public void OnDash(InputAction.CallbackContext context)
     {
         if (context.started && dashCD <= 0f)
+        {
             currentState.OnDashPressed(this);
             dashCD = 4f;
+        }
     }
 
     // --- Shared Logic Helpers ---
