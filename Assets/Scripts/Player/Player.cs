@@ -8,6 +8,7 @@ public class Player : Character
 
     [Header("Detection & UI")]
     public Transform groundCheck;
+    public Transform headHit;
     public GameOverUI gameOverUI;
 
     // --- State Pattern Variables ---
@@ -87,7 +88,7 @@ public class Player : Character
     {
         if (context.started)
             currentState.OnCrouchHeld(this);
-        else if (context.canceled)
+        else if (context.canceled && !CheckHeadHit())
             currentState.OnCrouchReleased(this);
     }
 
@@ -95,6 +96,11 @@ public class Player : Character
     public bool CheckGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, data.groundCheckRadius, data.groundLayer);
+    }
+
+    public bool CheckHeadHit()
+    {
+        return Physics2D.OverlapCircle(headHit.position, data.groundCheckRadius, data.groundLayer);
     }
 
     public override void TakeDamage(int amount)

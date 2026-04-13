@@ -45,6 +45,7 @@ public class PlayerCrouchState : PlayerBaseState
 
     public override void OnCrouchReleased(Player player)
     {
+        
         player.SwitchState(player.GroundedState);
     }
 
