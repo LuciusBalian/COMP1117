@@ -32,6 +32,8 @@ public class Player : Character
     private void Start()
     {
         // INITIALIZATION LOGIC
+        SwitchState(GroundedState);
+
     }
 
     private void Update()
@@ -51,7 +53,13 @@ public class Player : Character
     public void SwitchState(PlayerBaseState newState)
     {
         // SWITCH STATE LOGIC
+        if (currentState != null)
+        {
+            currentState.ExitState(this);
+        }
     }
+
+
 
     // --- Unity Input System Events ---
     public void OnMove(InputAction.CallbackContext context)
