@@ -40,6 +40,12 @@ public class PlayerGroundedState : PlayerBaseState
         player.SwitchState(player.AirborneState);
     }
 
+    public override void OnCrouchHeld(Player player)
+    {
+
+        player.SwitchState(player.CrouchState);
+    }
+
 
     public override void ExitState(Player player) { }
 }

@@ -83,6 +83,14 @@ public class Player : Character
             currentState.OnJumpPressed(this); // Pass input intent to state
     }
 
+    public void OnCrouch(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            currentState.OnCrouchHeld(this);
+        else if (context.canceled)
+            currentState.OnCrouchReleased(this);
+    }
+
     // --- Shared Logic Helpers ---
     public bool CheckGrounded()
     {
@@ -112,7 +120,7 @@ public class Player : Character
 
     public override void Move()
     {
-        if () {
+        
     }
 
     public void ResetState(Vector3 resetPos)

@@ -7,4 +7,6 @@ public abstract class PlayerBaseState
     public abstract void FixedUpdateState(Player player);
     public abstract void ExitState(Player player);
     public virtual void OnJumpPressed(Player player) { }
+    public virtual void OnCrouchHeld(Player player) { }
+    public virtual void OnCrouchReleased(Player player) { }
 }
